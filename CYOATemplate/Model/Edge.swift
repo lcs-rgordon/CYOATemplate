@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Edge {
+struct Edge: Hashable {
     
     // MARK: Stored properties
     let destinationId: Int

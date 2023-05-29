@@ -8,8 +8,36 @@
 import SwiftUI
 
 struct GameView: View {
+    
+    // MARK: Stored properties
+    @State var currentNode: Int = 1
+    
+    // MARK: Computed properties
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 10) {
+            
+            ForEach(storyNodes[currentNode].paragraphs, id: \.self) { currentParagraph in
+                
+                Text(currentParagraph)
+                
+            }
+            
+            Divider()
+            
+            ForEach(storyNodes[currentNode].edges, id: \.self) { currentEdge in
+                
+                Text("\(currentEdge.prompt)")
+                    .onTapGesture {
+                        withAnimation {
+                            currentNode = currentEdge.destinationId
+                        }
+                    }
+                
+            }
+            
+            
+        }
+        .padding()
     }
 }
 
