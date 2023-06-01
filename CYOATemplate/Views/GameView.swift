@@ -5,6 +5,7 @@
 //  Created by Russell Gordon on 2023-05-29.
 //
 
+import Blackbird
 import SwiftUI
 
 struct GameView: View {
@@ -16,25 +17,28 @@ struct GameView: View {
     var body: some View {
         VStack(spacing: 10) {
             
-            ForEach(storyNodes[currentNode].paragraphs, id: \.self) { currentParagraph in
-                
-                Text(currentParagraph)
-                
+            HStack {
+                Text("\(currentNode)")
+                    .font(.largeTitle)
+                Spacer()
             }
+            
+            NodeView(forNodeWithId: currentNode)
             
             Divider()
             
-            ForEach(storyNodes[currentNode].edges, id: \.self) { currentEdge in
-                
-                Text("\(currentEdge.prompt)")
-                    .onTapGesture {
-                        withAnimation {
-                            currentNode = currentEdge.destinationId
-                        }
-                    }
-                
-            }
+//            ForEach(storyNodes[currentNode].edges, id: \.self) { currentEdge in
+//                
+//                Text("\(currentEdge.prompt)")
+//                    .onTapGesture {
+//                        withAnimation {
+//                            currentNode = currentEdge.destinationId
+//                        }
+//                    }
+//                
+//            }
             
+            Spacer()
             
         }
         .padding()

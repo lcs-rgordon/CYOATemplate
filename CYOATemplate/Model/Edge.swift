@@ -5,12 +5,14 @@
 //  Created by Russell Gordon on 2023-05-29.
 //
 
+import Blackbird
 import Foundation
 
-struct Edge: Hashable {
+struct Edge: BlackbirdModel {
     
-    // MARK: Stored properties
-    let destinationId: Int
-    let prompt: String
-    
+    @BlackbirdColumn var id: Int
+    @BlackbirdColumn var from_node_id: Int
+    @BlackbirdColumn var to_node_id: Int
+    @BlackbirdColumn var prompt: String?
+
 }
