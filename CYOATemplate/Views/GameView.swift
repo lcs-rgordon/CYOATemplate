@@ -27,17 +27,8 @@ struct GameView: View {
             
             Divider()
             
-//            ForEach(storyNodes[currentNode].edges, id: \.self) { currentEdge in
-//                
-//                Text("\(currentEdge.prompt)")
-//                    .onTapGesture {
-//                        withAnimation {
-//                            currentNode = currentEdge.destinationId
-//                        }
-//                    }
-//                
-//            }
-            
+            EdgesView(forNodeWithId: currentNode, currentNode: $currentNode)
+                        
             Spacer()
             
         }
@@ -48,5 +39,7 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
+        // Make the database available to all other view through the environment
+        .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
 }

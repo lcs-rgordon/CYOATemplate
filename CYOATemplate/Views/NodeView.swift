@@ -26,7 +26,11 @@ struct NodeView: View {
     // The user interface
     var body: some View {
         if let node = nodes.results.first {
-            Text(try! AttributedString(markdown: node.narrative))
+
+            // Show a Text view, but render Markdown syntax, preserving newline characters
+            Text(try! AttributedString(markdown: node.narrative,
+                                       options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                                                                                              .inlineOnlyPreservingWhitespace)))
         } else {
             Text("Node with id \(nodeId) not found; directed graph has a gap.")
         }
@@ -55,6 +59,7 @@ struct NodeView: View {
 struct NodeView_Previews: PreviewProvider {
     
     static var previews: some View {
+
         NodeView(forNodeWithId: 1)
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
