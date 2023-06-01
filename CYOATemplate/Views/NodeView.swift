@@ -13,7 +13,7 @@ struct NodeView: View {
     // MARK: Stored properties
     
     // The id of the node we are trying to view
-    let nodeId: Int
+    let currentNodeId: Int
 
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -32,12 +32,12 @@ struct NodeView: View {
                                        options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                               .inlineOnlyPreservingWhitespace)))
         } else {
-            Text("Node with id \(nodeId) not found; directed graph has a gap.")
+            Text("Node with id \(currentNodeId) not found; directed graph has a gap.")
         }
     }
     
     // MARK: Initializer
-    init(forNodeWithId id: Int) {
+    init(currentNodeId: Int) {
         
         // Retrieve rows that describe nodes in the directed graph
         // NOTE: There should only be one row for a given node_id
@@ -45,11 +45,11 @@ struct NodeView: View {
         //       in the Node table
         _nodes = BlackbirdLiveModels({ db in
             try await Node.read(from: db,
-                                    sqlWhere: "node_id = ?", "\(id)")
+                                    sqlWhere: "node_id = ?", "\(currentNodeId)")
         })
         
         // Set the node we are trying to view
-        nodeId = id
+        self.currentNodeId = currentNodeId
         
     }
 
@@ -60,7 +60,7 @@ struct NodeView_Previews: PreviewProvider {
     
     static var previews: some View {
 
-        NodeView(forNodeWithId: 1)
+        NodeView(currentNodeId: 1)
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
 

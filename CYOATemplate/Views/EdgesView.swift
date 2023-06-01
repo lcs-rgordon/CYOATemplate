@@ -12,18 +12,18 @@ struct EdgesView: View {
     
     // MARK: Stored properties
     
-    // The id of the node we are trying to see the edges for
-    let nodeId: Int
-
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    // The list of nodes retrieved
+    // The list of edges retrieved
     @BlackbirdLiveModels var edges: Blackbird.LiveResults<Edge>
     
-    // A derived value that points at the source of truth for the current node
-    // on GameView
-    @Binding var currentNode: Int
+    // The current node that edges are being shown for.
+    //
+    // NOTE: This is a derived value; it points at the source of
+    // truth for the current node on GameView. This allows the current
+    // node to be changed from this view.
+    @Binding var currentNodeId: Int
     
     // MARK: Computed properties
     
@@ -32,23 +32,34 @@ struct EdgesView: View {
         
         VStack(spacing: 20) {
 
-            ForEach(edges.results) { currentEdge in
+            if edges.results.count > 0 {
 
-                HStack {
-                    
-                    Spacer()
-                    
-                    // Show a Text view, but render Markdown syntax, ignoring newlines
-                    Text(try! AttributedString(markdown: currentEdge.prompt))
-                        .multilineTextAlignment(.trailing)
-                        .onTapGesture {
-                            withAnimation {
-                                currentNode = currentEdge.to_node_id
+                ForEach(edges.results) { currentEdge in
+
+                    HStack {
+                        
+                        Spacer()
+                        
+                        // Show a Text view, but render Markdown syntax, ignoring newlines
+                        Text(try! AttributedString(markdown: currentEdge.prompt))
+                            .multilineTextAlignment(.trailing)
+                            .onTapGesture {
+                                currentNodeId = currentEdge.to_node_id
                             }
-                        }
+
+                    }
 
                 }
 
+            } else {
+                HStack {
+                    Spacer()
+
+                    Text("No edges found for node with \(currentNodeId).")
+                        .onTapGesture {
+                            currentNodeId = 1
+                        }
+                }
             }
 
         }
@@ -56,22 +67,16 @@ struct EdgesView: View {
     }
     
     // MARK: Initializer
-    init(forNodeWithId id: Int, currentNode: Binding<Int>) {
+    init(currentNodeId: Binding<Int>) {
         
-        // Retrieve rows that describe nodes in the directed graph
-        // NOTE: There should only be one row for a given node_id
-        //       since there is a UNIQUE constrant on the node_id column
-        //       in the Node table
+        // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
             try await Edge.read(from: db,
-                                    sqlWhere: "from_node_id = ?", "\(id)")
+                                sqlWhere: "from_node_id = ?", "\(currentNodeId.wrappedValue)")
         })
         
-        // Set the node we are trying to view
-        nodeId = id
-        
         // Set the current node
-        _currentNode = currentNode
+        _currentNodeId = currentNodeId
         
     }
 }
@@ -79,7 +84,7 @@ struct EdgesView: View {
 struct EdgesView_Previews: PreviewProvider {
     static var previews: some View {
 
-        EdgesView(forNodeWithId: 1, currentNode: .constant(1))
+        EdgesView(currentNodeId: .constant(3))
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
         

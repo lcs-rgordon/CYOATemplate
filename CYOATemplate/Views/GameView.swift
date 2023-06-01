@@ -11,23 +11,23 @@ import SwiftUI
 struct GameView: View {
     
     // MARK: Stored properties
-    @State var currentNode: Int = 1
+    @State var currentNodeId: Int = 1
     
     // MARK: Computed properties
     var body: some View {
         VStack(spacing: 10) {
             
             HStack {
-                Text("\(currentNode)")
+                Text("\(currentNodeId)")
                     .font(.largeTitle)
                 Spacer()
             }
             
-            NodeView(forNodeWithId: currentNode)
+            NodeView(currentNodeId: currentNodeId)
             
             Divider()
             
-            EdgesView(forNodeWithId: currentNode, currentNode: $currentNode)
+            EdgesView(currentNodeId: $currentNodeId)
                         
             Spacer()
             
