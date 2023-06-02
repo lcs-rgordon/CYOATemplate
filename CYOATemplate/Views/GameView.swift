@@ -13,9 +13,18 @@ struct GameView: View {
     // MARK: Stored properties
     @State var currentNodeId: Int = 1
     
+    // The list of movies produced by joining the Movie and Genre tables
+    @BlackbirdLiveQuery(tableName: "Node", { db in
+        try await db.query("SELECT COUNT(*) as Count FROM Node WHERE Node.visits > 0")
+    }) var nodesVisited
+    
     // MARK: Computed properties
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) {
+            
+            Text("A total of \(nodesVisited.results.first?["Count"]?.intValue ?? 0) nodes have been visited in this story.")
+            
+            Divider()
             
             HStack {
                 Text("\(currentNodeId)")
