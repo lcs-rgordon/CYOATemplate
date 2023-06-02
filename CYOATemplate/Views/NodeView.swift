@@ -12,8 +12,12 @@ struct NodeView: View {
     
     // MARK: Stored properties
     
-    // The id of the node we are trying to view
-    let currentNodeId: Int
+    // The current node that edges are being shown for.
+    //
+    // NOTE: This is a derived value; it points at the source of
+    // truth for the current node on GameView. This allows to monitor
+    // this property for changes so that visits can be tracked
+    @Binding var currentNodeId: Int
 
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -37,15 +41,11 @@ struct NodeView: View {
                 Text(try! AttributedString(markdown: node.narrative,
                                            options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                                   .inlineOnlyPreservingWhitespace)))
+                .onChange(of: currentNodeId) { newNodeId in
+                    updateVisitCount(forNodeWithId: newNodeId)
+                }
                 .onAppear {
-                    // Update visits count for this node
-                    Task {
-                        try await db!.transaction { core in
-                            try core.query("UPDATE Node SET visits = ? WHERE node_id = ?",
-                                           node.visits + 1,
-                                           node.node_id)
-                        }
-                    }
+                    updateVisitCount(forNodeWithId: currentNodeId)
                 }
             }
             
@@ -56,7 +56,7 @@ struct NodeView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int) {
+    init(currentNodeId: Binding<Int>) {
         
         // Retrieve rows that describe nodes in the directed graph
         // NOTE: There should only be one row for a given node_id
@@ -64,22 +64,35 @@ struct NodeView: View {
         //       in the Node table
         _nodes = BlackbirdLiveModels({ db in
             try await Node.read(from: db,
-                                    sqlWhere: "node_id = ?", "\(currentNodeId)")
+                                sqlWhere: "node_id = ?", "\(currentNodeId.wrappedValue)")
         })
         
         // Set the node we are trying to view
-        self.currentNodeId = currentNodeId
+        _currentNodeId = currentNodeId
         
     }
 
-    
+    // MARK: Function
+    func updateVisitCount(forNodeWithId id: Int) {
+        // What node is being shown?
+        print("We are on node \(id).")
+        
+        // Update visits count for this node
+        Task {
+            try await db!.transaction { core in
+                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?",
+                               id)
+            }
+        }
+
+    }
 }
 
 struct NodeView_Previews: PreviewProvider {
     
     static var previews: some View {
 
-        NodeView(currentNodeId: 1)
+        NodeView(currentNodeId: .constant(1))
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
 

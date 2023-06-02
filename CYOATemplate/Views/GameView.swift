@@ -32,7 +32,7 @@ struct GameView: View {
                 Spacer()
             }
             
-            NodeView(currentNodeId: currentNodeId)
+            NodeView(currentNodeId: $currentNodeId)
             
             Divider()
             
