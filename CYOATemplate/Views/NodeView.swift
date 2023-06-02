@@ -27,19 +27,30 @@ struct NodeView: View {
     var body: some View {
         if let node = nodes.results.first {
 
-            // Show a Text view, but render Markdown syntax, preserving newline characters
-            Text(try! AttributedString(markdown: node.narrative,
-                                       options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                                                                                              .inlineOnlyPreservingWhitespace)))
-            .onAppear {
-                // Update visits count for this node
-                Task {
-                    try await db!.transaction { core in
-                        try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
+            VStack {
+                
+                Divider()
+                
+                Text("Node visited \(node.visits) times.")
+                
+                Divider()
+                
+                
+                // Show a Text view, but render Markdown syntax, preserving newline characters
+                Text(try! AttributedString(markdown: node.narrative,
+                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                                                                                                  .inlineOnlyPreservingWhitespace)))
+                .onAppear {
+                    // Update visits count for this node
+                    Task {
+                        try await db!.transaction { core in
+                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
+                        }
+                        
                     }
                     
                 }
-                
+
             }
             
         } else {
