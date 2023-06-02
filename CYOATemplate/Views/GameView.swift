@@ -15,14 +15,26 @@ struct GameView: View {
     
     // The total number of nodes that have been visited at least once
     @BlackbirdLiveQuery(tableName: "Node", { db in
-        try await db.query("SELECT COUNT(*) as Count FROM Node WHERE Node.visits > 0")
-    }) var nodesVisited
+        try await db.query("SELECT COUNT(*) as VisitedNodeCount FROM Node WHERE Node.visits > 0")
+    }) var nodesVisitedStats
+
+    @BlackbirdLiveQuery(tableName: "Node", { db in
+        try await db.query("SELECT COUNT(*) as TotalNodeCount FROM Node")
+    }) var totalNodesStats
+    
+    var visitedNodes: Int {
+        return nodesVisitedStats.results.first?["VisitedNodeCount"]?.intValue ?? 0
+    }
+    
+    var totalNodes: Int {
+        return totalNodesStats.results.first?["TotalNodeCount"]?.intValue ?? 0
+    }
     
     // MARK: Computed properties
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             
-            Text("A total of \(nodesVisited.results.first?["Count"]?.intValue ?? 0) nodes have been visited in this story.")
+            Text("A total of \(visitedNodes) nodes out of \(totalNodes) have been visited in this story.")
             
             Divider()
             
