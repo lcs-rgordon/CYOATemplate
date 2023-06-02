@@ -13,7 +13,7 @@ struct GameView: View {
     // MARK: Stored properties
     @State var currentNodeId: Int = 1
     
-    // The list of movies produced by joining the Movie and Genre tables
+    // The total number of nodes that have been visited at least once
     @BlackbirdLiveQuery(tableName: "Node", { db in
         try await db.query("SELECT COUNT(*) as Count FROM Node WHERE Node.visits > 0")
     }) var nodesVisited
