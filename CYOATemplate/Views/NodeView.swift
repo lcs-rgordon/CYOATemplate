@@ -41,23 +41,10 @@ struct NodeView: View {
                                            options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                                   .inlineOnlyPreservingWhitespace)))
                 .onAppear {
-                    // Update visits count for this node
-                    Task {
-                        try await db!.transaction { core in
-                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
-                        }
-                        
-                    }
-                    
+                    updateVisitCount(forNodeWithId: currentNodeId)
                 }
                 .onChange(of: currentNodeId) { newNodeId in
-                    // Update visits count for this node
-                    Task {
-                        try await db!.transaction { core in
-                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
-                        }
-                        
-                    }
+                    updateVisitCount(forNodeWithId: newNodeId)
                 }
 
             }
@@ -68,6 +55,8 @@ struct NodeView: View {
     }
     
     // MARK: Initializer
+    
+    // Function that runs once when the structure is created
     init(currentNodeId: Int) {
         
         // Retrieve rows that describe nodes in the directed graph
@@ -83,6 +72,19 @@ struct NodeView: View {
         self.currentNodeId = currentNodeId
         
     }
+    
+    // MARK: Function(s)
+    func updateVisitCount(forNodeWithId id: Int) {
+        // Update visits count for this node
+        Task {
+            try await db!.transaction { core in
+                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", id)
+            }
+            
+        }
+
+    }
+    
 
     
 }
