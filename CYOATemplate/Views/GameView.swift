@@ -15,6 +15,9 @@ struct GameView: View {
     // What node are we on?
     @State var currentNodeId: Int = 1
     
+    // What is the opacity of the text being shown?
+    @State var textOpacity = 1.0
+    
     // How many nodes have been visited?
     @BlackbirdLiveQuery(tableName: "Node", { db in
         try await db.query("SELECT COUNT(*) AS VisitedNodeCount FROM Node WHERE Node.visits > 0")
@@ -40,12 +43,14 @@ struct GameView: View {
         VStack(spacing: 10) {
             
             Text("A total of \(visitedNodes) nodes out of \(totalNodes) nodes overall have been visited in this story.")
-            
+                .opacity(textOpacity)
+
             Divider()
             
             HStack {
                 Text("\(currentNodeId)")
                     .font(.largeTitle)
+                    .opacity(textOpacity)
                 Spacer()
             }
             
@@ -53,11 +58,13 @@ struct GameView: View {
             
             Divider()
             
-            EdgesView(currentNodeId: $currentNodeId)
+            
+            EdgesView(currentNodeId: $currentNodeId, textOpacity: $textOpacity)
                         
             Spacer()
             
         }
+        .opacity(textOpacity)
         .padding()
     }
 }
