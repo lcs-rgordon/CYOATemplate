@@ -50,6 +50,15 @@ struct NodeView: View {
                     }
                     
                 }
+                .onChange(of: currentNodeId) { newNodeId in
+                    // Update visits count for this node
+                    Task {
+                        try await db!.transaction { core in
+                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
+                        }
+                        
+                    }
+                }
 
             }
             
