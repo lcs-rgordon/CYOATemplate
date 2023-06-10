@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8123CD192A34CF7B00F9DF1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD182A34CF7B00F9DF1C /* main.swift */; };
 		8123CD212A34CFC700F9DF1C /* Blackbird in Frameworks */ = {isa = PBXBuildFile; productRef = 8123CD202A34CFC700F9DF1C /* Blackbird */; };
 		8123CD232A34D06D00F9DF1C /* db.sqlite in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81C784AC2A28B1D6001BC867 /* db.sqlite */; };
 		8123CD262A34D26400F9DF1C /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */; };
+		8123CD292A34F99E00F9DF1C /* StoryInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD282A34F99E00F9DF1C /* StoryInformation.swift */; };
+		8123CD2B2A34F9C100F9DF1C /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD2A2A34F9C100F9DF1C /* SharedFunctions.swift */; };
+		8123CD2D2A34FE4800F9DF1C /* DirectedGraphBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD2C2A34FE4800F9DF1C /* DirectedGraphBuilder.swift */; };
 		81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */; };
 		81C198AD2A251ABC0047A4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AC2A251ABC0047A4B3 /* Assets.xcassets */; };
 		81C198B02A251ABC0047A4B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AF2A251ABC0047A4B3 /* Preview Assets.xcassets */; };
@@ -40,8 +42,10 @@
 
 /* Begin PBXFileReference section */
 		8123CD162A34CF7B00F9DF1C /* GraphGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
-		8123CD182A34CF7B00F9DF1C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		8123CD282A34F99E00F9DF1C /* StoryInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryInformation.swift; sourceTree = "<group>"; };
+		8123CD2A2A34F9C100F9DF1C /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
+		8123CD2C2A34FE4800F9DF1C /* DirectedGraphBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectedGraphBuilder.swift; sourceTree = "<group>"; };
 		81C198A52A251ABB0047A4B3 /* CYOATemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYOATemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CYOATemplateApp.swift; sourceTree = "<group>"; };
 		81C198AC2A251ABC0047A4B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,8 +83,8 @@
 		8123CD172A34CF7B00F9DF1C /* GraphGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				8123CD272A34F98F00F9DF1C /* Model */,
 				8123CD242A34D0D000F9DF1C /* Helpers */,
-				8123CD182A34CF7B00F9DF1C /* main.swift */,
 			);
 			path = GraphGenerator;
 			sourceTree = "<group>";
@@ -112,8 +116,18 @@
 			isa = PBXGroup;
 			children = (
 				8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */,
+				8123CD2A2A34F9C100F9DF1C /* SharedFunctions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		8123CD272A34F98F00F9DF1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8123CD282A34F99E00F9DF1C /* StoryInformation.swift */,
+				8123CD2C2A34FE4800F9DF1C /* DirectedGraphBuilder.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		81C1989C2A251ABB0047A4B3 = {
@@ -286,8 +300,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8123CD2B2A34F9C100F9DF1C /* SharedFunctions.swift in Sources */,
+				8123CD292A34F99E00F9DF1C /* StoryInformation.swift in Sources */,
 				8123CD262A34D26400F9DF1C /* AppDatabase.swift in Sources */,
-				8123CD192A34CF7B00F9DF1C /* main.swift in Sources */,
+				8123CD2D2A34FE4800F9DF1C /* DirectedGraphBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
