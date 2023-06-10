@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8123CD192A34CF7B00F9DF1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD182A34CF7B00F9DF1C /* main.swift */; };
+		8123CD212A34CFC700F9DF1C /* Blackbird in Frameworks */ = {isa = PBXBuildFile; productRef = 8123CD202A34CFC700F9DF1C /* Blackbird */; };
+		8123CD232A34D06D00F9DF1C /* db.sqlite in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81C784AC2A28B1D6001BC867 /* db.sqlite */; };
+		8123CD262A34D26400F9DF1C /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */; };
 		81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */; };
 		81C198AD2A251ABC0047A4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AC2A251ABC0047A4B3 /* Assets.xcassets */; };
 		81C198B02A251ABC0047A4B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AF2A251ABC0047A4B3 /* Preview Assets.xcassets */; };
@@ -21,7 +25,23 @@
 		81C784AF2A28B4E7001BC867 /* EdgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C784AE2A28B4E7001BC867 /* EdgesView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8123CD142A34CF7B00F9DF1C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = /tmp;
+			dstSubfolderSpec = 0;
+			files = (
+				8123CD232A34D06D00F9DF1C /* db.sqlite in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8123CD162A34CF7B00F9DF1C /* GraphGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		8123CD182A34CF7B00F9DF1C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		81C198A52A251ABB0047A4B3 /* CYOATemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYOATemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CYOATemplateApp.swift; sourceTree = "<group>"; };
 		81C198AC2A251ABC0047A4B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +57,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8123CD132A34CF7B00F9DF1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8123CD212A34CFC700F9DF1C /* Blackbird in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81C198A22A251ABB0047A4B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -48,11 +76,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8123CD172A34CF7B00F9DF1C /* GraphGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				8123CD242A34D0D000F9DF1C /* Helpers */,
+				8123CD182A34CF7B00F9DF1C /* main.swift */,
+			);
+			path = GraphGenerator;
+			sourceTree = "<group>";
+		};
+		8123CD1D2A34CFA400F9DF1C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8123CD222A34D05300F9DF1C /* Model */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8123CD1F2A34CFC700F9DF1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8123CD222A34D05300F9DF1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81C784AC2A28B1D6001BC867 /* db.sqlite */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8123CD242A34D0D000F9DF1C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8123CD252A34D0DD00F9DF1C /* AppDatabase.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		81C1989C2A251ABB0047A4B3 = {
 			isa = PBXGroup;
 			children = (
+				8123CD1D2A34CFA400F9DF1C /* Shared */,
 				81C198A72A251ABB0047A4B3 /* CYOATemplate */,
+				8123CD172A34CF7B00F9DF1C /* GraphGenerator */,
 				81C198A62A251ABB0047A4B3 /* Products */,
+				8123CD1F2A34CFC700F9DF1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				81C198A52A251ABB0047A4B3 /* CYOATemplate.app */,
+				8123CD162A34CF7B00F9DF1C /* GraphGenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,7 +160,6 @@
 		81C198B62A251ACD0047A4B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				81C784AC2A28B1D6001BC867 /* db.sqlite */,
 				81C198BA2A251B1B0047A4B3 /* Node.swift */,
 				81C198BC2A251B2B0047A4B3 /* Edge.swift */,
 				81C198BE2A251B4D0047A4B3 /* Ending.swift */,
@@ -117,6 +188,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8123CD152A34CF7B00F9DF1C /* GraphGenerator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8123CD1C2A34CF7B00F9DF1C /* Build configuration list for PBXNativeTarget "GraphGenerator" */;
+			buildPhases = (
+				8123CD122A34CF7B00F9DF1C /* Sources */,
+				8123CD132A34CF7B00F9DF1C /* Frameworks */,
+				8123CD142A34CF7B00F9DF1C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GraphGenerator;
+			packageProductDependencies = (
+				8123CD202A34CFC700F9DF1C /* Blackbird */,
+			);
+			productName = GraphGenerator;
+			productReference = 8123CD162A34CF7B00F9DF1C /* GraphGenerator */;
+			productType = "com.apple.product-type.tool";
+		};
 		81C198A42A251ABB0047A4B3 /* CYOATemplate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81C198B32A251ABC0047A4B3 /* Build configuration list for PBXNativeTarget "CYOATemplate" */;
@@ -147,6 +238,9 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					8123CD152A34CF7B00F9DF1C = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					81C198A42A251ABB0047A4B3 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -169,6 +263,7 @@
 			projectRoot = "";
 			targets = (
 				81C198A42A251ABB0047A4B3 /* CYOATemplate */,
+				8123CD152A34CF7B00F9DF1C /* GraphGenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +282,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8123CD122A34CF7B00F9DF1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8123CD262A34D26400F9DF1C /* AppDatabase.swift in Sources */,
+				8123CD192A34CF7B00F9DF1C /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81C198A12A251ABB0047A4B3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,6 +309,32 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		8123CD1A2A34CF7B00F9DF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4UG443984D;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8123CD1B2A34CF7B00F9DF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4UG443984D;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		81C198B12A251ABC0047A4B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -380,6 +510,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8123CD1C2A34CF7B00F9DF1C /* Build configuration list for PBXNativeTarget "GraphGenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8123CD1A2A34CF7B00F9DF1C /* Debug */,
+				8123CD1B2A34CF7B00F9DF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		81C198A02A251ABB0047A4B3 /* Build configuration list for PBXProject "CYOATemplate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -412,6 +551,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8123CD202A34CFC700F9DF1C /* Blackbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */;
+			productName = Blackbird;
+		};
 		81C784A52A28AADA001BC867 /* Blackbird */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */;
