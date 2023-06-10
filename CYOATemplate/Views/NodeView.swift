@@ -27,16 +27,36 @@ struct NodeView: View {
     var body: some View {
         if let node = nodes.results.first {
 
-            // Show a Text view, but render Markdown syntax, preserving newline characters
-            Text(try! AttributedString(markdown: node.narrative,
-                                       options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                                                                                              .inlineOnlyPreservingWhitespace)))
+            VStack {
+                
+                Divider()
+                
+                Text("Node visited \(node.visits) times.")
+                
+                Divider()
+                
+                
+                // Show a Text view, but render Markdown syntax, preserving newline characters
+                Text(try! AttributedString(markdown: node.narrative,
+                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                                                                                                  .inlineOnlyPreservingWhitespace)))
+                .onAppear {
+                    updateVisitCount(forNodeWithId: currentNodeId)
+                }
+                .onChange(of: currentNodeId) { newNodeId in
+                    updateVisitCount(forNodeWithId: newNodeId)
+                }
+
+            }
+            
         } else {
             Text("Node with id \(currentNodeId) not found; directed graph has a gap.")
         }
     }
     
     // MARK: Initializer
+    
+    // Function that runs once when the structure is created
     init(currentNodeId: Int) {
         
         // Retrieve rows that describe nodes in the directed graph
@@ -52,6 +72,19 @@ struct NodeView: View {
         self.currentNodeId = currentNodeId
         
     }
+    
+    // MARK: Function(s)
+    func updateVisitCount(forNodeWithId id: Int) {
+        // Update visits count for this node
+        Task {
+            try await db!.transaction { core in
+                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", id)
+            }
+            
+        }
+
+    }
+    
 
     
 }

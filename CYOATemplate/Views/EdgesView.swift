@@ -25,6 +25,9 @@ struct EdgesView: View {
     // node to be changed from this view.
     @Binding var currentNodeId: Int
     
+    // Derived value; opacity of text to be shown
+    @Binding var textOpacity: Double
+        
     // MARK: Computed properties
     
     // The user interface
@@ -44,7 +47,25 @@ struct EdgesView: View {
                         Text(try! AttributedString(markdown: currentEdge.prompt))
                             .multilineTextAlignment(.trailing)
                             .onTapGesture {
-                                currentNodeId = currentEdge.to_node_id
+                                
+                                withAnimation() {
+                                    textOpacity = 0.0
+                                }
+                                
+                                Task {
+                                    
+                                    // Delay this task by one second
+                                    try await Task.sleep(for: Duration.seconds(1))
+                                    
+                                    // Now change the node id
+                                    currentNodeId = currentEdge.to_node_id
+                                    
+                                    // Now restore text opacity
+                                    withAnimation {
+                                        textOpacity = 1.0
+                                    }
+
+                                }
                             }
 
                     }
@@ -67,7 +88,7 @@ struct EdgesView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>) {
+    init(currentNodeId: Binding<Int>, textOpacity: Binding<Double>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -77,14 +98,17 @@ struct EdgesView: View {
         
         // Set the current node
         _currentNodeId = currentNodeId
-        
+
+        // Set the text opacity for text shown on this page
+        _textOpacity = textOpacity
+
     }
 }
 
 struct EdgesView_Previews: PreviewProvider {
     static var previews: some View {
 
-        EdgesView(currentNodeId: .constant(3))
+        EdgesView(currentNodeId: .constant(3), textOpacity: .constant(1.0))
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
         
